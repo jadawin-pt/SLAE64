@@ -7,9 +7,6 @@
 
 int main()
 {
-  printf("Error -14 means: ~s", errno(-14));
-  return 1;
-  
   int sock1 = socket(AF_INET, SOCK_STREAM, 0);
 
   struct sockaddr_in addr;
