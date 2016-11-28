@@ -32,7 +32,7 @@ socket:
         pop     rdi
         push    SOCK_STREAM
         pop     rsi
-        xor     rdx, rdx
+        xor     edx, edx
         syscall
 
         ;; store stock
@@ -59,7 +59,7 @@ bind:
 listen:
         ;; listen(sockfd,0)
         push    rsi                     ; store &sockaddr
-        xor     rsi, rsi                ; backlog = 0, load from previously saved %rdx
+        xor     esi, esi                ; backlog = 0, load from previously saved %rdx
         push    SYS_LISTEN
         pop     rax
         syscall
@@ -89,7 +89,7 @@ close:
 read:
         ;; read(sockfd2, void *buf, 8)
         pop     rdi                     ; load back sockfd2
-        xor     rax, rax                ; rdx = 0x10, 16 bytes to read
+        xor     eax, eax                ; rdx = 0x10, 16 bytes to read
         push    rsp                     ; rsp still points to sockaddr 16 bytes
         pop     rsi                     ; so use it as *buf
         syscall
