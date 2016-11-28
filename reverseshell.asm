@@ -28,7 +28,7 @@ socket:
         pop     rdi
         push    SOCK_STREAM
         pop     rsi
-        xor     rdx, rdx
+        xor     edx, edx
         syscall
 
         ;; store sockfd in %rdi
